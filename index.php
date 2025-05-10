@@ -34,6 +34,6 @@
         </div>
     </main>
 </div>
-
+<?php $sql = "SELECT * FROM products WHERE 1=1"?>
 <?php include('template/productList.php'); ?>
 <?php include('template/footer.php') ?>

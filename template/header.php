@@ -1,6 +1,8 @@
 <?php
-    include_once('model/m_database.php');
-    $db = new M_database();
+    include_once('model/m_giohang.php');
+    include_once('model/m_account.php');
+
+    $cart = new M_giohang();
     session_start();
 
     $isLoggedIn = isset($_SESSION['user_id']);
@@ -9,23 +11,8 @@
     $maKH = $_SESSION['user_id'] ?? 0;
     $currentPage = basename($_SERVER['PHP_SELF']);
 
-    $username = null;
-
-    if ($isLoggedIn && $maKH > 0) {
-        $db->setQuery("SELECT TenTK FROM account WHERE MaTK = $maKH");
-        $result = $db->excuteQuery();
-        if ($result && $row = $result->fetch_assoc()) {
-            $username = $row['TenTK'];
-        }
-    }
-
     if ($isLoggedIn) {
-        $db->setQuery("SELECT c.MaSP, c.SoLuong, c.GiaTien, p.TenSP, p.ImageSP
-        FROM cart c
-        JOIN products p ON c.MaSP = p.MaSP
-        WHERE c.MaTK = $maKH AND c.State = 'chưa thanh toán'");
-
-        $result = $db->excuteQuery();
+        $result = $cart->getCartItems($maKH);
 
         if ($result && $result->num_rows > 0) {
             $cartItems = [];
@@ -35,8 +22,6 @@
         } else {
             $cartItems = [];
         }
-
-        $db->close();
     } else {
         $cartItems = [];
     }
@@ -46,7 +31,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="index.php" style="font-style:normal">PSHOP</a>
         <form class="form-inline" method="GET" action="searchProduct.php">
-            <input class="searchbar d-block d-lg-none form-control mr-sm-2" type="search" name="query" placeholder="Bạn cần tìm gì?" aria-label="Search">
+            <input class="searchbar d-block d-lg-none form-control mr-sm-2" type="search" name="query" placeholder="Bạn cần tìm gì?" aria-label="Search" required>
         </form>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -55,7 +40,7 @@
             <ul class="navbar-nav ml-auto">
                  <li class="nav-item">
                     <form class="form-inline" method="GET" action="searchProduct.php">
-                        <input class="searchbar form-control mr-sm-2" type="search" name="query" placeholder="Bạn cần tìm gì?" aria-label="Search">
+                        <input class="searchbar form-control mr-sm-2" type="search" name="query" placeholder="Bạn cần tìm gì?" aria-label="Search" required>
                     </form>
                 </li>
                 <li class="nav-item <?= ($currentPage === 'index.php') ? 'active' : '' ?>">
@@ -124,6 +109,7 @@
             </svg>
         </span>
     </header>
+    <form action="/PHP_Finalterm/payProduct.php" method="POST">
     <div class="listCart">
         <?php if (count($cartItems) > 0): ?>
             <?php foreach ($cartItems as $item): ?>
@@ -148,4 +134,5 @@
         <button class="checkout-button">Thanh Toán</button>
     </div>
     <?php endif; ?>
+    </form>
 </div>

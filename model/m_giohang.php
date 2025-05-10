@@ -5,7 +5,10 @@
     {
         public function getCartItems($maTK)
         {
-            $this->setQuery("SELECT * FROM Cart WHERE MaTK = ? AND State = 'chưa thanh toán'");
+            $this->setQuery("SELECT c.MaSP, c.SoLuong, c.GiaTien, c.NgayMua, c.State, p.TenSP, p.ImageSP
+            FROM cart c
+            JOIN products p ON c.MaSP = p.MaSP
+            WHERE c.MaTK = ?");
             $stmt = $this->conn->prepare($this->query);
             $stmt->bind_param("i", $maTK);
             $stmt->execute();
@@ -74,5 +77,15 @@
             $stmt->execute();
             return $stmt->affected_rows > 0;
         }
+
+        public function clearCart($maTK)
+        {
+            $this->setQuery("DELETE FROM Cart WHERE MaTK = ?");
+            $stmt = $this->conn->prepare($this->query);
+            $stmt->bind_param("i", $maTK);
+            $stmt->execute();
+            return $stmt->affected_rows > 0;
+        }
+
     }
 ?>

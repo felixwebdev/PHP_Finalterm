@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once("m_database.php");
 class M_account extends M_database
 {
@@ -12,7 +11,14 @@ class M_account extends M_database
         return $stmt->get_result();
     }
 
-
+    public function getAccount($maTK)
+    {
+        $conn = $this->getConnection();
+        $stmt = $conn->prepare("SELECT * FROM account WHERE MaTK = ?");
+        $stmt->bind_param("i", $maTK);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
 
     public function isUserExist($email, $phone)
     {

@@ -23,9 +23,9 @@
                 SoLuong int Not Null,
                 GiaTien float Not Null,
                 MoTa varchar(100) Not Null,
-                TagName varchar(100) Not Null,
                 BaoHanh varchar(100) Not Null,
                 ImageSP varchar(100) Not Null,
+                TagName varchar(100) Not Null,
                 Sold int Not Null Default 0,
                 MaTK int(6) Zerofill,
                 Constraint P_MaTK_FK Foreign Key (MaTK) References Account(MaTK) On Delete Cascade
@@ -45,6 +45,32 @@
                 Constraint C_MaSP_FK Foreign Key (MaSP) References Products(MaSP) On Delete cascade
                 )";
             $this->setQuery($sql_Carts);
+            $this->excuteQuery();
+
+             $sql_HD = "Create Table If Not Exists HoaDon (
+                MaHD int(6) Zerofill Unsigned Auto_Increment Primary Key,
+                MaTK int(6) Zerofill Not Null,
+                SoTien float Not Null,
+                NgayThanhToan TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                Constraint HD_MaTK_FK Foreign Key (MaTK) References Account(MaTK) On Delete cascade
+                )";
+            $this->setQuery($sql_HD);
+            $this->excuteQuery();
+
+            $sql_LS_Mua = "Create Table If Not Exists LS_Mua (
+                MaHD int(6) Zerofill Not Null,
+                MaTK int(6) Zerofill Not Null,
+                MaSP varchar(6) Not Null,
+                TenSP varchar(50) Not Null,            
+                SoLuong int Not Null,
+                GiaTien float Not Null,
+                State varchar(50) Not Null,
+                NgayMua TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                primary key (MaHD, MaSP),
+                Constraint LS_MaHD_FK Foreign Key (MaHD) References HoaDon(MaHD) On Delete cascade,
+                Constraint LS_MaSP_FK Foreign Key (MaSP) References Products(MaSP) On Delete cascade
+            )";
+            $this->setQuery($sql_LS_Mua);
             $this->excuteQuery();
 
             $sql_Voucher = "Create Table If Not Exists Vouchers (
@@ -72,13 +98,12 @@
                 $SoLuong = (int)$product['SoLuong'];
                 $GiaTien = (float)$product['GiaTien'];
                 $MoTa = addslashes($product['MoTa']);
-                $TagName = addslashes($product['TagName']);
                 $BaoHanh = addslashes($product['BaoHanh']);
                 $ImageSP = addslashes($product['ImageSP']);
                 $MaTK = $product['MaTK'];
 
-                $sql_pro = "INSERT INTO Products (MaSP, TenSP, NSX, PhanLoai, SoLuong, GiaTien, Mota, TagName, BaoHanh, ImageSP, MaTK)
-                            VALUES ('$MaSP', '$TenSP', '$NSX', '$PhanLoai', $SoLuong, $GiaTien, '$MoTa', '$TagName', '$BaoHanh', '$ImageSP', '$MaTK')";
+                $sql_pro = "INSERT INTO Products (MaSP, TenSP, NSX, PhanLoai, SoLuong, GiaTien, Mota, BaoHanh, ImageSP, MaTK)
+                            VALUES ('$MaSP', '$TenSP', '$NSX', '$PhanLoai', $SoLuong, $GiaTien, '$MoTa', '$BaoHanh', '$ImageSP', '$MaTK')";
                 $this->setQuery($sql_pro);
                 $this->excuteQuery();
             }

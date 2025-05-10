@@ -111,24 +111,25 @@
 
 <div class="main__container">
     <?php
-        include_once('model/m_database.php');
-        $db = new M_database();
+        include_once('model/m_account.php');
+        include_once('model/m_giohang.php');
+        include_once('model/m_lsMua.php');
+
+        $acc = new M_account();
+        $lsMua = new M_lsMua();
+        $cart = new M_giohang();
+
+
         $maKH = $_SESSION['user_id'] ?? 0;
         if ($maKH <= 0) die("Vui lòng đăng nhập");
+        $user = $acc->getAccount($maKH)->fetch_assoc();
+      
+        $orders1 = $cart->getCartItems($maKH);
+        $orders2 = $lsMua->getLSMuaByMaTK($maKH);
 
-        $db->setQuery("SELECT * FROM account WHERE MaTK = $maKH");
-        $user = $db->excuteQuery()->fetch_assoc();
-
-        // Lấy lịch sử đơn hàng
-        $db->setQuery("
-            SELECT c.MaSP, c.SoLuong, c.GiaTien, c.NgayMua, c.State, p.TenSP, p.ImageSP
-            FROM cart c
-            JOIN products p ON c.MaSP = p.MaSP
-            WHERE c.MaTK = $maKH
-        ");
-        $orders = $db->excuteQuery();
-
-        $db->close();
+        $acc->close();
+        $cart->close();
+        $lsMua->close();
     ?>
 
     <h2>Thông tin cá nhân</h2>
@@ -147,11 +148,21 @@
     <hr>
 
     <h2>Lịch sử mua hàng</h2>
-    <table>
+    <table style="max-height: 400px; overflow-y: auto;">
         <tr>
             <th>Tên sản phẩm</th><th>Ngày mua</th><th>Giá tiền</th><th>Số lượng</th><th>Tổng tiền</th><th>Trạng thái</th>
         </tr>
-        <?php while ($row = $orders->fetch_assoc()): ?>
+        <?php while ($row = $orders1->fetch_assoc()): ?>
+        <tr>
+            <td data-label="Tên sản phẩm"><?= $row['TenSP'] ?></td>
+            <td data-label="Ngày mua"><?= date_format(new DateTime($row['NgayMua']), "H:i:s d/m/Y") ?></td>
+            <td data-label="Giá tiền"><?= number_format($row['GiaTien'], 0, ',', '.') ?>đ</td>
+            <td data-label="Số lượng"><?= $row['SoLuong'] ?></td>
+            <td data-label="Tổng tiền"><?= number_format($row['GiaTien']*$row['SoLuong'], 0, ',', '.') ?>đ</td>
+            <td data-label="Trạng thái"><?= $row['State'] ?></td>
+        </tr>
+        <?php endwhile; ?>
+         <?php while ($row = $orders2->fetch_assoc()): ?>
         <tr>
             <td data-label="Tên sản phẩm"><?= $row['TenSP'] ?></td>
             <td data-label="Ngày mua"><?= date_format(new DateTime($row['NgayMua']), "H:i:s d/m/Y") ?></td>

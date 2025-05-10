@@ -20,6 +20,7 @@
     $filterYear = $_GET['year'] ?? '';
     $filterCategory = $_GET['category'] ?? '';
     $sortPrice = $_GET['sort'] ?? '';
+    $query = $_GET['query'] ?? '';
 
     // Xây dựng query động
     $sql = "SELECT * FROM products WHERE 1=1";
@@ -33,6 +34,20 @@
     if ($filterCategory !== '') {
         $sql .= " AND PhanLoai = '" . $db->conn->real_escape_string($filterCategory) . "'";
     }
+
+    if ($query !== '') {
+        $query = $db->conn->real_escape_string($query); // escape trước
+        $keywords = explode(" ", $query);
+        
+        $sql .= " AND (";
+        foreach ($keywords as $i => $word) {
+            $word = $db->conn->real_escape_string($word);
+            if ($i > 0) $sql .= " OR ";
+            $sql .= "TenSP LIKE '%$word%' OR MaSP LIKE '%$word%' OR PhanLoai LIKE '%$word%' OR MoTa LIKE '%$word%' OR GiaTien LIKE '%$word%'";
+        }
+        $sql .= ")";
+    }
+
 
     // Sắp xếp theo giá
     if ($sortPrice === 'asc') {
@@ -61,6 +76,7 @@
 
     <!-- Filter Form -->
     <form class="row g-3 mb-4" method="get">
+        <input type="hidden" name="query" value="<?= htmlspecialchars($_GET['query'] ?? '') ?>">
         <div class="col-md-3">
             <select name="year" class="form-select">
                 <option value=""> Năm sản xuất </option>
