@@ -179,9 +179,9 @@
           <input type="hidden" name="maTK" value="<?php echo $user['MaTK']; ?>">
           <input type="hidden" name="soTien" value="<?php echo $tongTien+$tax; ?>">
           <div class="d-flex justify-content-between fw-bold text-dark mb-4">
-            <label for="voucherSelect" class="form-label fw-semibold">Chọn mã giảm giá</label>
+            <label for="voucherSelect" class="form-label fw-semibold ">Chọn mã giảm giá</label>
             <select class="form-select" id="voucherSelect" name="voucher">
-            <option selected disabled>-- Chọn voucher của bạn --</option>
+            <option selected disabled>Voucher</option>
             <?php while ($voucher = $list_voucher->fetch_assoc()): ?>
               <option 
                 value="<?php echo $voucher['MaV']; ?>" 

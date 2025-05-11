@@ -14,7 +14,7 @@
     if ($maKH <= 0) {
         die("Vui lòng đăng nhập");
     }
-    if ($sotien <= 0) {
+    if ($sotien < 0) {
         die("Số tiền không hợp lệ");
     }
     $hoadon->thanhToan($maKH, $sotien);
