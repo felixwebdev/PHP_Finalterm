@@ -34,6 +34,12 @@
     }
 
     $cart->close();
+    $_SESSION['toast'] = [
+        'title' => 'Thông báo',
+        'message' => 'Thêm giỏ hàng thành công!',
+        'type' => 'success',
+        'duration' => 3000
+    ];
     header("Location: " . $_SERVER['HTTP_REFERER']);
     exit;
 ?>

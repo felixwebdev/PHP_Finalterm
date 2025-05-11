@@ -1,5 +1,7 @@
 <?php include('template/head.php') ?>
 <?php include('template/header.php') ?>
+<?php include('template/toastMess.php') ?>
+
 <?php
     include_once('model/m_database.php');
     $db = new M_database();

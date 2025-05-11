@@ -33,7 +33,12 @@
         }
     } 
     $cart->clearCart($maKH);  
-    
+     $_SESSION['toast'] = [
+            'title' => 'Thông báo',
+            'message' => 'Thanh toán thành công số tiền ' . number_format( $sotien, 0, ',', '.') . ' VNĐ',
+            'type' => 'success',
+            'duration' => 3000
+    ];
     header("Location: ../index.php");
     exit;
 ?>

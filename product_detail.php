@@ -1,5 +1,6 @@
 <?php include('template/head.php') ?>
 <?php include('template/header.php') ?>
+<?php include('template/toastMess.php') ?>
 
 <?php
     $id = isset($_GET['id']) ? $_GET['id'] : 0;

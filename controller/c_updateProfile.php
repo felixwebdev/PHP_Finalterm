@@ -19,5 +19,11 @@
     } else {
         die("Cập nhật thông tin thất bại.");
     }
+    $_SESSION['toast'] = [
+            'title' => 'Thông báo',
+            'message' => 'Cập nhật thông tin thành công!',
+            'type' => 'success',
+            'duration' => 3000
+    ];
     header("Location: ../user.php");
 exit;

@@ -79,14 +79,14 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="user.php">Thông tin tài khoản</a></li>
-                            <li><a class="dropdown-item" href="logout.php">Đăng xuất</a></li>
+                            <li><a class="dropdown-item" href="controller/c_logout.php">Đăng xuất</a></li>
                         </ul>
                     </li>
                     <li class="nav-item d-block d-lg-none">
                         <a class="nav-link" href="user.php">Thông tin tài khoản</a>
                     </li>
                     <li class="nav-item d-block d-lg-none">
-                         <a class="nav-link" href="logout.php">Đăng xuất</a>
+                         <a class="nav-link" href="controller/c_logout.php">Đăng xuất</a>
                     </li>
                 <?php else: ?>
                     <li class="nav-item <?= ($currentPage === 'signup.php') ? 'active' : '' ?>">

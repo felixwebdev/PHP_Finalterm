@@ -30,6 +30,12 @@ if ($acc->isUserExist($email, $sdt)) {
 
 // Thêm tài khoản
 if ($acc->insertAccount($tenTK, $email, $sdt, $diaChi, $password)) {
+     $_SESSION['toast'] = [
+            'title' => 'Thông báo',
+            'message' => 'Đăng kí tài khoản thành công!',
+            'type' => 'success',
+            'duration' => 3000
+    ];
     header("Location: ../signIn.php?register=success");
     exit();
 } else {

@@ -34,6 +34,12 @@ if ($result && $result->num_rows > 0) {
     if ($account['LevelID'] == 1) {
         header('Location: ../analystic_general.php');
     } else {
+        $_SESSION['toast'] = [
+            'title' => 'Thông báo',
+            'message' => 'Đăng nhập thành công!',
+            'type' => 'success',
+            'duration' => 3000
+        ];
         header('Location: ../index.php');
     }
     exit();

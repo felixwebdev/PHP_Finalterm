@@ -1,5 +1,6 @@
 <?php include('template/head.php') ?>
 <?php include('template/header.php') ?>
+<?php include('template/toastMess.php') ?>
 <div class="main__container">
     <div class="container__banner">
         <div class="banner__inner">

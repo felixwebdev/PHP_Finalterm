@@ -22,6 +22,12 @@
     } 
 
     $cart->close();
+     $_SESSION['toast'] = [
+            'title' => 'Thông báo',
+            'message' => 'Xoá sản phẩm khỏi giỏ hàng thành công!',
+            'type' => 'success',
+            'duration' => 3000
+    ];
     header("Location: $return_url");
     exit;
 ?>
