@@ -1,4 +1,4 @@
-<?php include "template/sidebar.php" ?>
+<?php include "../template/sidebar.php" ?>
 <div class="bg-light flex-fill">
     <style>
         .card {
@@ -171,4 +171,4 @@
 </script>
 </body>
 </html>
-<?php include "template/script_footer.php"; ?>
+<?php include "../template/script_footer.php"; ?>

@@ -1,18 +1,13 @@
 <?php
-// Gọi controller
-require_once 'controller/c_khachhang.php';
-
+require_once '../controller/c_khachhang.php';
 ?>
-
-
-<?php include "template/sidebar.php"; ?>
+<?php include "../template/sidebar.php"; ?>
 <div class="bg-light flex-fill">
     <div id="mainContent" class="p-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h4 class="fw-bold">Quản lý khách hàng</h4>
         </div>
 
-        <!-- Bộ lọc nâng cao -->
         <div class="card mb-4 shadow-sm border-0">
             <div class="card-header bg-dark text-white">
                 <i class="fa-solid fa-filter"></i> Bộ lọc
@@ -110,4 +105,4 @@ require_once 'controller/c_khachhang.php';
 
     </div>
 </div>
-<?php include "template/script_footer.php"; ?>
+<?php include "../template/script_footer.php"; ?>

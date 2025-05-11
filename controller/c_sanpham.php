@@ -1,5 +1,5 @@
 <?php
-require_once "./model/m_sanpham.php";
+require_once "../model/m_sanpham.php";
 
 class SanPhamController {
     private $model;
@@ -36,7 +36,7 @@ class SanPhamController {
         return $this->model->deleteProduct($masp);
     }
     public function themSanPham($data, $image) {
-    $target_dir = "./media/image/Product_img/"; // Thư mục lưu trữ ảnh
+    $target_dir = "../media/image/Product_img/"; // Thư mục lưu trữ ảnh
     $target_file = $target_dir . basename($image["name"]);
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
@@ -54,10 +54,8 @@ class SanPhamController {
             echo "<script>alert('Thêm sản phẩm thành công!');</script>";
             return $this->model->addProduct($masp, $tensp, $nsx, $phanloai, $soluong, $giatien, $mota, $baohanh, $image_path);
         }
-            echo "<script>alert('Thêm sản phẩm ko thành công!');</script>";
-
         }
-                echo "<script>alert('Thêm sản phẩm ko the  thành công!');</script>";
+            echo "<script>alert('Chỉ áp dụng định dạng ảnh png, jpg, jpeg');</script>";
 
         return false;
     }

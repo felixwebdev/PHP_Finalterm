@@ -1,6 +1,6 @@
 <?php 
-    include "template/sidebar.php"; 
-    require_once "controller/c_sanpham.php"; 
+    include "../template/sidebar.php"; 
+    require_once "../controller/c_sanpham.php"; 
 ?>
 
 <div class="bg-light flex-fill">
@@ -218,4 +218,4 @@
         </div>
     </div>
 </div>
-<?php include "template/script_footer.php"; ?>
+<?php include "../template/script_footer.php"; ?>

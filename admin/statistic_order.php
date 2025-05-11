@@ -1,5 +1,5 @@
-<?php include "template/sidebar.php"; ?>
-<?php require_once "controller/c_donhang.php"; ?>
+<?php include "../template/sidebar.php"; ?>
+<?php require_once "../controller/c_donhang.php"; ?>
 
 <div class="bg-light flex-fill">
     <div id="mainContent" class="p-4">
@@ -7,8 +7,6 @@
             <h4 class="fw-bold">Quản lý đơn hàng</h4>
         </div>
 
-
-        <!-- Bộ lọc -->
         <div class="card mb-4 shadow-sm border-0">
             <div class="card-header bg-dark text-white">
                 <i class="fa-solid fa-filter"></i> Bộ lọc
@@ -117,4 +115,4 @@
 
     </div>
 </div>
-<?php include "template/script_footer.php"; ?>
+<?php include "../template/script_footer.php"; ?>

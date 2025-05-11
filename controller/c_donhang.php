@@ -1,5 +1,5 @@
 <?php
-require_once "./model/m_donhang.php";
+require_once "../model/m_donhang.php";
 
 class DonHangController {
     public function hienThiDonHang() {
