@@ -170,7 +170,8 @@
                             </td>
                             <td>
                                 <!-- Nút sửa sản phẩm -->
-                                <!-- <a class="btn btn-sm btn-warning">sửa</a> -->
+                                <!-- Nút sửa sản phẩm (trong bảng) -->
+                                <a href="?edit_masp=<?= $sp['MaSP'] ?>" class="btn btn-sm btn-warning">sửa</a>
 
                                 <!-- Nút xóa sản phẩm -->
                                 <form method="POST" onsubmit="return confirm('Bạn có chắc muốn xóa sản phẩm này?');" style="display:inline;">
@@ -214,8 +215,88 @@
                     </li>
                 </ul>
             </nav>
-
+           
+            <!-- Phần sửa sản phẩm (thay thế phần modal cũ) -->
+            <?php if (isset($sanpham_can_sua)): ?>
+            <div class="card mb-4 shadow-sm border-0" id="editFormSection">
+                <div class="card-header bg-primary text-white">
+                    <i class="fa-solid fa-pen-to-square"></i> Sửa sản phẩm
+                </div>
+                <div class="card-body">
+                    <form class="row g-3" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="masp" value="<?= $sanpham_can_sua['MaSP'] ?>">
+                        
+                        <div class="col-md-3">
+                            <label class="form-label">Mã sản phẩm</label>
+                            <input type="text" class="form-control" value="<?= $sanpham_can_sua['MaSP'] ?>" readonly>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <label class="form-label">Tên sản phẩm</label>
+                            <input type="text" class="form-control" name="tensp" value="<?= $sanpham_can_sua['TenSP'] ?>" required>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <label class="form-label">Nhà sản xuất</label>
+                            <input type="text" class="form-control" name="nsx" value="<?= $sanpham_can_sua['NSX'] ?>" required>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <label class="form-label">Phân loại</label>
+                            <input type="text" class="form-control" name="phanloai" value="<?= $sanpham_can_sua['PhanLoai'] ?>" required>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <label class="form-label">Số lượng</label>
+                            <input type="number" class="form-control" name="soluong" value="<?= $sanpham_can_sua['SoLuong'] ?>" required>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <label class="form-label">Giá</label>
+                            <input type="number" class="form-control" name="giatien" value="<?= $sanpham_can_sua['GiaTien'] ?>" required>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <label class="form-label">Mô tả</label>
+                            <input type="text" class="form-control" name="mota" value="<?= $sanpham_can_sua['MoTa'] ?>" required>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <label class="form-label">Bảo hành</label>
+                            <input type="text" class="form-control" name="baohanh" value="<?= $sanpham_can_sua['BaoHanh'] ?>" required>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label class="form-label">Ảnh sản phẩm</label>
+                            <input type="file" class="form-control" name="image">
+                            <small class="text-muted">Để trống nếu không muốn thay đổi ảnh</small>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label class="form-label">Ảnh hiện tại</label>
+                            <img src="<?= $sanpham_can_sua['ImageSP'] ?>" width="100" class="d-block">
+                        </div>
+                        
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary" name="update_product">Lưu thay đổi</button>
+                            <a href="?" class="btn btn-secondary">Hủy</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>
+<script>
+// Tự động cuộn xuống form sửa khi có sản phẩm cần sửa
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.location.href.includes('edit_masp')) {
+        const editSection = document.getElementById('editFormSection');
+        if (editSection) {
+            editSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+});
+</script>
 <?php include "../template/script_footer.php"; ?>

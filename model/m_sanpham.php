@@ -20,7 +20,15 @@ class SanPhamModel extends M_database {
         $result = $this->excuteQuery();
         return $result->fetch_assoc()['total'];
     }
-        
+
+    public function isProductExist($masp, $tensp) {
+        $stmt = $this->conn->prepare("SELECT * FROM products WHERE masp = ? OR tensp = ?");
+        $stmt->bind_param("ss", $masp, $tensp);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->num_rows > 0; // Nếu có ít nhất 1 dòng, nghĩa là trùng
+    }
+
     public function deleteProduct($masp) {
         $masp = $this->real_escape_string($masp);
         $sql = "DELETE FROM Products WHERE MaSP = '$masp'";
@@ -56,11 +64,7 @@ class SanPhamModel extends M_database {
     }
 
     public function addProduct($masp, $tensp, $nsx, $phanloai, $soluong, $giatien, $mota, $baohanh, $image) {
-        if (strpos($image, '../') === 0) {
-        $image_path = './' . substr($image, 3);
-        } else {
-            $image_path = $image;
-        }
+        $image_path = $image;
 
         $sql = "INSERT INTO Products (MaSP, TenSP, NSX, PhanLoai, SoLuong, GiaTien, MoTa, BaoHanh, ImageSP) 
                 VALUES ('$masp', '$tensp', '$nsx', '$phanloai', '$soluong', '$giatien', '$mota', '$baohanh', '$image_path')";
@@ -68,7 +72,33 @@ class SanPhamModel extends M_database {
         $this->setQuery($sql);
         return $this->excuteQuery();
     }
+    public function getProductById($masp) {
+        $masp = $this->real_escape_string($masp);
+        $sql = "SELECT * FROM Products WHERE MaSP = '$masp'";
+        $this->setQuery($sql);
+        $result = $this->excuteQuery();
+        return $result->fetch_assoc();
+    }
 
+    public function updateProduct($masp, $tensp, $nsx, $phanloai, $soluong, $giatien, $mota, $baohanh, $image_path = null) {
+        $sql = "UPDATE Products SET 
+                TenSP = '$tensp',
+                NSX = '$nsx',
+                PhanLoai = '$phanloai',
+                SoLuong = '$soluong',
+                GiaTien = '$giatien',
+                MoTa = '$mota',
+                BaoHanh = '$baohanh'";
+        
+        if ($image_path) {
+            $sql .= ", ImageSP = '$image_path'";
+        }
+        
+        $sql .= " WHERE MaSP = '$masp'";
+        
+        $this->setQuery($sql);
+        return $this->excuteQuery();
+    }
 
 
 }

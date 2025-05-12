@@ -116,9 +116,9 @@
 
             <h4 class="text-center mb-4"><i class="fa-solid fa-store me-2"></i>Trang Admin</h4> <hr>
             <ul class="nav nav-pills flex-column mb-auto">
-                <li>
+                <!-- <li>
                     <a href="./analystic_general.php"><i class="fa-solid fa-chart-line"></i><span class="ms-2">Thống kê</span></a>
-                </li>
+                </li> -->
                 <li>
                     <a href="./analystic_product.php"><i class="fa-solid fa-box"></i><span class="ms-2">Sản phẩm</span></a>
                 </li>
@@ -128,13 +128,11 @@
                 <li>
                     <a href="./analystic_customer.php"><i class="fa-solid fa-users"></i><span class="ms-2">Khách hàng</span></a>
                 </li>
-                
-                <!-- <li>
-                    <a href="#"><i class="fa-solid fa-gear"></i><span class="ms-2">Cài đặt</span></a>
-                </li>
                 <li>
-                    <a href="#"><i class="fa-solid fa-right-from-bracket" ></i><span class="ms-2">Đăng xuất</span></a>
-                </li> -->
+                    <a href="#" id="logoutButton">
+                        <i class="fa-solid fa-right-from-bracket"></i><span class="ms-2">Đăng xuất</span>
+                    </a>
+                </li>
             </ul>
         </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

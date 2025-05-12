@@ -31,8 +31,8 @@ if ($result && $result->num_rows > 0) {
     $_SESSION['levelID'] = $account['LevelID'];
 
     // Điều hướng theo quyền
-    if ($account['LevelID'] == 0) {
-        header('Location: ../admin/analystic_general.php');
+    if ($account['LevelID'] == 1) {
+        header('Location: ../admin/analystic_products.php');
     } else {
         $_SESSION['toast'] = [
             'title' => 'Thông báo',

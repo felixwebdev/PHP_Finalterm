@@ -53,16 +53,16 @@ class KhachHangModel extends M_database {
         return $data['total'];
     }
     public function xoaKhachHang($maTK) {
-        $maTK = intval($maTK); // Đảm bảo an toàn kiểu dữ liệu
+        $maTK = intval($maTK); // Đảm bảo kiểu dữ liệu an toàn
 
-        // Kiểm tra nếu người dùng cần xóa là admin
+        // Kiểm tra nếu người dùng là admin (LevelID = 1)
         $sqlCheckAdmin = "SELECT LevelID FROM Account WHERE MaTK = $maTK";
         $this->setQuery($sqlCheckAdmin);
         $result = $this->excuteQuery();
         
         if ($result) {
             $data = $result->fetch_assoc();
-            if ($data['LevelID'] == 0) {  // Nếu là admin, không cho xóa
+            if ($data['LevelID'] == 1) {  // Nếu là admin thì không cho xóa
                 return "Không thể xóa tài khoản admin";
             }
         }
@@ -72,6 +72,7 @@ class KhachHangModel extends M_database {
         $this->setQuery($sql);
         return $this->excuteQuery();
     }
+
     
 
 

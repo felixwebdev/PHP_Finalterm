@@ -36,4 +36,15 @@
         }
     });
 </script>
+<script>
+    document.getElementById('logoutButton').addEventListener('click', function (e) {
+        e.preventDefault(); // Ngăn chuyển hướng mặc định
+
+        // Nếu bạn cần xác nhận:
+        if (confirm("Bạn có chắc chắn muốn đăng xuất không?")) {
+            window.location.href = "../signIn.php";
+        }
+    });
+</script>
+
 
