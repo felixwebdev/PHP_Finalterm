@@ -1,7 +1,14 @@
 <?php 
+    ob_start();
     include "../template/sidebar.php"; 
     require_once "../controller/c_sanpham.php"; 
 ?>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../public/CSS/style.css">
+    <link rel="stylesheet" href="../public/CSS/base.css">
+</head>
+<?php include('../template/toastMess.php') ?>
 
 <div class="bg-light flex-fill">
     <div id="mainContent" class="p-4">
@@ -157,7 +164,7 @@
                     <?php foreach ($ds_tren_trang as $sp): ?>
                         <tr>
                             <td><?= $sp['MaSP'] ?></td> <!-- Thêm hiển thị Mã sản phẩm -->
-                            <td><img src="<?= $sp['ImageSP'] ?>" width="60"></td>
+                            <td><img src=".<?= $sp['ImageSP'] ?>" width="60"></td>
                             <td><?= $sp['TenSP'] ?></td>
                             <td><?= number_format($sp['GiaTien'], 0, ',', '.') ?> VNĐ</td>
                             <td><?= $sp['SoLuong'] ?></td>
@@ -274,7 +281,7 @@
                         
                         <div class="col-md-6">
                             <label class="form-label">Ảnh hiện tại</label>
-                            <img src="<?= $sanpham_can_sua['ImageSP'] ?>" width="100" class="d-block">
+                            <img src=".<?= $sanpham_can_sua['ImageSP'] ?>" width="100" class="d-block">
                         </div>
                         
                         <div class="col-12">

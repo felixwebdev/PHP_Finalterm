@@ -32,7 +32,7 @@ if ($result && $result->num_rows > 0) {
 
     // Điều hướng theo quyền
     if ($account['LevelID'] == 1) {
-        header('Location: ../admin/analystic_products.php');
+        header('Location: ../admin/analystic_product.php');
     } else {
         $_SESSION['toast'] = [
             'title' => 'Thông báo',

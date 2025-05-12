@@ -38,7 +38,7 @@ class SanPhamController {
     public function themSanPham($data, $image) {
         $target_dir = "../media/image/Product_img/";
         $imageFileType = strtolower(pathinfo($image["name"], PATHINFO_EXTENSION));
-        $newFileName = $data['masp'] . '.' . $imageFileType;
+        $newFileName = $data['masp'] .'.' . $imageFileType;
         $target_file = $target_dir . $newFileName;
 
         $masp = $data['masp'];
@@ -51,21 +51,34 @@ class SanPhamController {
         $baohanh = $data['baohanh'];
         $image_path = $target_file;
 
-        // ✅ Kiểm tra trùng mã hoặc tên
         if ($this->model->isProductExist($masp, $tensp)) {
-            echo "<script>alert('Mã sản phẩm hoặc tên sản phẩm đã tồn tại!');</script>";
+            $_SESSION['toast'] = [
+                'title' => 'Thông báo',
+                'message' => 'Mã sản phẩm hoặc tên sản phẩm đã tồn tại!',
+                'type' => 'error',
+                'duration' => 3000
+            ];
             return false;
         }
 
-        // ✅ Kiểm tra định dạng ảnh
         if (in_array($imageFileType, ["jpg", "png", "jpeg", "gif"])) {
             if (move_uploaded_file($image["tmp_name"], $target_file)) {
-                echo "<script>alert('Thêm sản phẩm thành công!');</script>";
+                $_SESSION['toast'] = [
+                    'title' => 'Thông báo',
+                    'message' => 'Thêm sản phẩm thành công!',
+                    'type' => 'success',
+                    'duration' => 3000
+                ];
                 return $this->model->addProduct($masp, $tensp, $nsx, $phanloai, $soluong, $giatien, $mota, $baohanh, $image_path);
             }
         }
 
-        echo "<script>alert('Chỉ áp dụng định dạng ảnh png, jpg, jpeg');</script>";
+        $_SESSION['toast'] = [
+            'title' => 'Thông báo',
+            'message' => 'Chỉ áp dụng định dạng ảnh png, jpg, jpeg',
+            'type' => 'error',
+            'duration' => 3000
+        ];
         return false;
     }
 
@@ -95,11 +108,21 @@ class SanPhamController {
                 if (move_uploaded_file($image["tmp_name"], $target_file)) {
                     $image_path = $target_file;
                 } else {
-                    echo "<script>alert('Có lỗi khi upload ảnh!');</script>";
+                    $_SESSION['toast'] = [
+                        'title' => 'Thông báo',
+                        'message' => 'Có lỗi khi upload ảnh!',
+                        'type' => 'error',
+                        'duration' => 3000
+                    ];
                     return false;
                 }
             } else {
-                echo "<script>alert('Chỉ áp dụng định dạng ảnh png, jpg, jpeg');</script>";
+                $_SESSION['toast'] = [
+                    'title' => 'Thông báo',
+                    'message' => 'Chỉ áp dụng định dạng ảnh png, jpg, jpeg',
+                    'type' => 'error',
+                    'duration' => 3000
+                ];
                 return false;
             }
         }
@@ -122,7 +145,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_masp'])) {
     $sanphamController = new SanPhamController();
     $sanphamController->xoaSanPham($masp_xoa);
     $currentPage = $_GET['page'] ?? 1;
-
+    $_SESSION['toast'] = [
+        'title' => 'Thông báo',
+        'message' => 'Xóa sản phẩm thành công!',
+        'type' => 'success',
+        'duration' => 3000
+    ];
     header("Location: ?page=" . $currentPage);
     
 }
@@ -130,9 +158,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_masp'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
     $result = $sanphamController->themSanPham($_POST, $_FILES['image']);
     if ($result) {
-        echo "<script>alert('Thêm sản phẩm thành công!);</script>";
+        $_SESSION['toast'] = [
+            'title' => 'Thông báo',
+            'message' => 'Thêm sản phẩm thành công!',
+            'type' => 'success',
+            'duration' => 3000
+        ];
+       // echo "<script>alert('Thêm sản phẩm thành công!);</script>";
     } else {
-        echo "<script>alert('Có lỗi khi tạo sản phẩm!');</script>";
+        $_SESSION['toast'] = [
+            'title' => 'Thông báo',
+            'message' => 'Có lỗi khi thêm sản phẩm!',
+            'type' => 'error',
+            'duration' => 3000
+        ];
     }
 
 }
@@ -147,9 +186,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['edit_masp'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_product'])) {
     $result = $sanphamController->suaSanPham($_POST, $_FILES['image'] ?? null);
     if ($result) {
-        echo "<script>alert('Thay đổi sản phẩm thành công!'); window.location.href = '?';</script>";
+        $_SESSION['toast'] = [
+            'title' => 'Thông báo',
+            'message' => 'Thay đổi sản phẩm thành công!',
+            'type' => 'success',
+            'duration' => 3000
+        ];
+        echo "window.location.href = '?';</script>";
     } else {
-        echo "<script>alert('Có lỗi khi cập nhật sản phẩm!');</script>";
+        $_SESSION['toast'] = [
+            'title' => 'Thông báo',
+            'message' => 'Có lỗi khi cập nhật sản phẩm!',
+            'type' => 'error',
+            'duration' => 3000
+        ];
     }
 }
 

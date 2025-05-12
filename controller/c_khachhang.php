@@ -1,5 +1,6 @@
 <?php
 require_once '../model/m_khachhang.php';
+session_start();
 
 class KhachHangController {
     private $khachHangModel;
@@ -59,10 +60,23 @@ if (isset($_GET['action']) && $_GET['action'] === 'xoa' && isset($_GET['id'])) {
     
     if ($result === "Không thể xóa tài khoản admin") {
         // Hiển thị thông báo lỗi cho người dùng
-        echo "<script>alert('Không thể xóa tài khoản admin'); window.location.href = '../admin/analystic_customer.php';</script>";
+        $_SESSION['toast'] = [
+            'title' => 'Thông báo',
+            'message' => 'Không thể xóa tài khoản admin!',
+            'type' => 'error',
+            'duration' => 3000
+        ];
+       header("Location: ../admin/analystic_customer.php");
+       exit;
     } else {
         // Sau khi xóa xong thì chuyển hướng để tránh bị xóa lại khi reload
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+        $_SESSION['toast'] = [
+            'title' => 'Thông báo',
+            'message' => 'Đã xóa thành công!',
+            'type' => 'success',
+            'duration' => 3000
+        ];
         header("Location: ?ten_khach={$_GET['ten_khach']}&email={$_GET['email']}&sdt={$_GET['sdt']}&page=" . $page);
         exit;
     }

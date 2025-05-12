@@ -5,7 +5,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="./public/img/favicon.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="./public/css/bootstrap.min1.css">
     <!-- FontAwesome CSS -->
@@ -14,7 +13,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 </head>
-<?php include('template/toastMess.php')  ?>
 <body>
     <div class="uf-form-signin">
         <div class="text-center">

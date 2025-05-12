@@ -1,6 +1,5 @@
 <?php include "../template/sidebar.php"; ?>
 <?php require_once "../controller/c_donhang.php"; ?>
-
 <div class="bg-light flex-fill">
     <div id="mainContent" class="p-4">
         <div class="d-flex justify-content-between align-items-center mb-4">

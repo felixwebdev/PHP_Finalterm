@@ -1,6 +1,12 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../public/CSS/style.css">
+    <link rel="stylesheet" href="../public/CSS/base.css">
+</head>
 <?php
 require_once '../controller/c_khachhang.php';
 ?>
+<?php include ('../template/toastMess.php') ?>
 <?php include "../template/sidebar.php"; ?>
 <div class="bg-light flex-fill">
     <div id="mainContent" class="p-4">
@@ -105,4 +111,5 @@ require_once '../controller/c_khachhang.php';
 
     </div>
 </div>
+<script src="main.js"></script>
 <?php include "../template/script_footer.php"; ?>
