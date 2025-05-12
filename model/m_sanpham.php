@@ -56,11 +56,19 @@ class SanPhamModel extends M_database {
     }
 
     public function addProduct($masp, $tensp, $nsx, $phanloai, $soluong, $giatien, $mota, $baohanh, $image) {
+        if (strpos($image, '../') === 0) {
+        $image_path = './' . substr($image, 3);
+        } else {
+            $image_path = $image;
+        }
+
         $sql = "INSERT INTO Products (MaSP, TenSP, NSX, PhanLoai, SoLuong, GiaTien, MoTa, BaoHanh, ImageSP) 
-                VALUES ('$masp', '$tensp', '$nsx', '$phanloai', '$soluong', '$giatien', '$mota', '$baohanh', '$image')";
+                VALUES ('$masp', '$tensp', '$nsx', '$phanloai', '$soluong', '$giatien', '$mota', '$baohanh', '$image_path')";
+        
         $this->setQuery($sql);
         return $this->excuteQuery();
     }
+
 
 
 }

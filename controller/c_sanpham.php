@@ -36,9 +36,11 @@ class SanPhamController {
         return $this->model->deleteProduct($masp);
     }
     public function themSanPham($data, $image) {
-    $target_dir = "../media/image/Product_img/"; // Thư mục lưu trữ ảnh
-    $target_file = $target_dir . basename($image["name"]);
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    $target_dir = "../media/image/Product_img/";
+    $imageFileType = strtolower(pathinfo($image["name"], PATHINFO_EXTENSION));
+    echo $imageFileType;
+    $newFileName = $data['masp'] . '.' . $imageFileType;
+    $target_file = $target_dir . $newFileName;
 
     if (in_array($imageFileType, ["jpg", "png", "jpeg", "gif"])) {
         if (move_uploaded_file($image["tmp_name"], $target_file)) {
@@ -54,10 +56,9 @@ class SanPhamController {
             echo "<script>alert('Thêm sản phẩm thành công!');</script>";
             return $this->model->addProduct($masp, $tensp, $nsx, $phanloai, $soluong, $giatien, $mota, $baohanh, $image_path);
         }
-        }
-            echo "<script>alert('Chỉ áp dụng định dạng ảnh png, jpg, jpeg');</script>";
-
-        return false;
+    }
+    echo "<script>alert('Chỉ áp dụng định dạng ảnh png, jpg, jpeg');</script>";
+    return false;
     }
 
 
