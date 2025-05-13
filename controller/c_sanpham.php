@@ -33,6 +33,12 @@ class SanPhamController {
         ];
     }
     public function xoaSanPham($masp) {
+        $_SESSION['toast'] = [
+            'title' => 'Thông báo',
+            'message' => 'Xóa sản phẩm thành công!',
+            'type' => 'success',
+            'duration' => 3000
+        ];
         return $this->model->deleteProduct($masp);
     }
     public function themSanPham($data, $image) {
