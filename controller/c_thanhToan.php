@@ -29,7 +29,7 @@
         if ($lsMua->getLSMuaByMaSP($maSP)->num_rows > 0) {
             $lsMua->updateLSMua($maKH, $maSP, $soLuong);
         } else {
-            $lsMua->addLSMua($maHD, $maKH, $maSP, $tenSP,$soLuong, $giaTien, 'Đã thanh toán');
+            $lsMua->addLSMua($maHD, $maKH, $maSP, $tenSP,$soLuong, $sotien, 'Đã thanh toán');
         }
     } 
     $cart->clearCart($maKH);  

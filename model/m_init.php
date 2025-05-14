@@ -59,13 +59,14 @@
             $sql_LS_Mua = "Create Table If Not Exists LS_Mua (
             MaHD int(6) Zerofill Not Null,
             MaTK int(6) Zerofill Not Null,
-            MaSP varchar(6) Not Null,           
+            MaSP varchar(6) Not Null,
+            TenSP varchar(100) Not Null,
             SoLuong int Not Null,
+            GiaTien float Not Null,
             State varchar(50) Not Null,
             NgayMua TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-            primary key (MaHD, MaTK, MaSP),
+            primary key (MaHD, MaSP),
             Constraint LS_MaHD_FK Foreign Key (MaHD) References HoaDon(MaHD) On Delete cascade,
-            Constraint LS_MaTK_FK Foreign Key (MaTK) References Account(MaTK) On Delete cascade,
             Constraint LS_MaSP_FK Foreign Key (MaSP) References Products(MaSP) On Delete cascade
             )";
 
