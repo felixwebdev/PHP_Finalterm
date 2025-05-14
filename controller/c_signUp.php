@@ -36,7 +36,7 @@ if ($acc->insertAccount($tenTK, $email, $sdt, $diaChi, $password)) {
             'type' => 'success',
             'duration' => 3000
     ];
-    header("Location: ../signIn.php?register=success");
+    header("Location: ../signUp.php?message=Đăng ký tài khoản thành công! Vui lòng đợi 2s...&status=success");
     exit();
 } else {
     header("Location: ../signUp.php?error=insertfail");

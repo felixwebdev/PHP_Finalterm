@@ -1,19 +1,19 @@
 [
   {
-    "LevelID": 0,
-    "TenTK": "Trương Anh Kiệt",
-    "Password": "user123",
-    "Email": "anhkiet@gmail.com",
-    "SDT": "0987654321",
-    "DiaChi": "TP Hồ Chí Minh"
-  },
-  {
     "LevelID": 1,
     "TenTK": "Admin",
     "Password": "admin123",
     "Email": "admin@web.com",
     "SDT": "0000000000",
     "DiaChi": "System"
+  },
+  {
+    "LevelID": 0,
+    "TenTK": "Trương Anh Kiệt",
+    "Password": "user123",
+    "Email": "anhkiet@gmail.com",
+    "SDT": "0987654321",
+    "DiaChi": "TP Hồ Chí Minh"
   },
   {
     "LevelID": 0,

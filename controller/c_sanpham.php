@@ -56,6 +56,7 @@ class SanPhamController {
         $mota = $data['mota'];
         $baohanh = $data['baohanh'];
         $image_path = $target_file;
+        $MaTK = "000001";
 
         if ($this->model->isProductExist($masp, $tensp)) {
             $_SESSION['toast'] = [
@@ -67,7 +68,7 @@ class SanPhamController {
             return false;
         }
 
-        if (in_array($imageFileType, ["jpg", "png", "jpeg", "gif"])) {
+        if (in_array($imageFileType, ["jpg", "png", "jpeg", "gif", "webp"])) {
             if (move_uploaded_file($image["tmp_name"], $target_file)) {
                 $_SESSION['toast'] = [
                     'title' => 'Thông báo',
@@ -75,7 +76,7 @@ class SanPhamController {
                     'type' => 'success',
                     'duration' => 3000
                 ];
-                return $this->model->addProduct($masp, $tensp, $nsx, $phanloai, $soluong, $giatien, $mota, $baohanh, $image_path);
+                return $this->model->addProduct($masp, $tensp, $nsx, $phanloai, $soluong, $giatien, $mota, $baohanh, $image_path, $MaTK);
             }
         }
 
@@ -101,13 +102,14 @@ class SanPhamController {
         $giatien = $data['giatien'];
         $mota = $data['mota'];
         $baohanh = $data['baohanh'];
+        $MaTK = '000001';
         
         $image_path = null;
         if ($image && $image['error'] == 0) {
             $target_dir = "../media/image/Product_img/";
             $imageFileType = strtolower(pathinfo($image["name"], PATHINFO_EXTENSION));
             
-            if (in_array($imageFileType, ["jpg", "png", "jpeg", "gif"])) {
+            if (in_array($imageFileType, ["jpg", "png", "jpeg", "gif", "webp"])) {
                 $newFileName = $masp . '.' . $imageFileType;
                 $target_file = $target_dir . $newFileName;
                 
@@ -133,7 +135,7 @@ class SanPhamController {
             }
         }
         
-        return $this->model->updateProduct($masp, $tensp, $nsx, $phanloai, $soluong, $giatien, $mota, $baohanh, $image_path);
+        return $this->model->updateProduct($masp, $tensp, $nsx, $phanloai, $soluong, $giatien, $mota, $baohanh, $image_path, $MaTK);
     }
 
 
@@ -208,5 +210,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_product'])) {
         ];
     }
 }
-
-

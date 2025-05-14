@@ -63,15 +63,15 @@ class SanPhamModel extends M_database {
         return $this->excuteQuery();
     }
 
-    public function addProduct($masp, $tensp, $nsx, $phanloai, $soluong, $giatien, $mota, $baohanh, $image) {
+    public function addProduct($masp, $tensp, $nsx, $phanloai, $soluong, $giatien, $mota, $baohanh, $image, $MaTK) {
         if (strpos($image, '../') === 0) {
             $image_path = './' . substr($image, 3); // Cắt bỏ ../ và thêm lại ./
         } else {
             $image_path = $image;
         }
 
-        $sql = "INSERT INTO Products (MaSP, TenSP, NSX, PhanLoai, SoLuong, GiaTien, MoTa, BaoHanh, ImageSP) 
-                VALUES ('$masp', '$tensp', '$nsx', '$phanloai', '$soluong', '$giatien', '$mota', '$baohanh', '$image_path')";
+        $sql = "INSERT INTO Products (MaSP, TenSP, NSX, PhanLoai, SoLuong, GiaTien, MoTa, BaoHanh, ImageSP, MaTK) 
+                VALUES ('$masp', '$tensp', '$nsx', '$phanloai', '$soluong', '$giatien', '$mota', '$baohanh', '$image_path', '$MaTK')";
         
         $this->setQuery($sql);
         return $this->excuteQuery();
@@ -84,7 +84,13 @@ class SanPhamModel extends M_database {
         return $result->fetch_assoc();
     }
 
-    public function updateProduct($masp, $tensp, $nsx, $phanloai, $soluong, $giatien, $mota, $baohanh, $image_path = null) {
+    public function updateProduct($masp, $tensp, $nsx, $phanloai, $soluong, $giatien, $mota, $baohanh, $image_path = null, $MaTK) {
+        if ($image_path) {
+            if (strpos($image_path, '../') === 0) {
+                $image_path = './' . substr($image_path, 3); // Cắt bỏ ../ và thêm lại ./
+            }
+        }
+
         $sql = "UPDATE Products SET 
                 TenSP = '$tensp',
                 NSX = '$nsx',
@@ -92,7 +98,8 @@ class SanPhamModel extends M_database {
                 SoLuong = '$soluong',
                 GiaTien = '$giatien',
                 MoTa = '$mota',
-                BaoHanh = '$baohanh'";
+                BaoHanh = '$baohanh',
+                MaTK = '$MaTK'";
         
         if ($image_path) {
             $sql .= ", ImageSP = '$image_path'";
@@ -103,6 +110,4 @@ class SanPhamModel extends M_database {
         $this->setQuery($sql);
         return $this->excuteQuery();
     }
-
-
 }
