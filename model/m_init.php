@@ -47,7 +47,7 @@
             $this->excuteQuery();
 
              $sql_HD = "Create Table If Not Exists HoaDon (
-                MaHD int(6) Zerofill Unsigned Auto_Increment Primary Key,
+                MaHD int(6) Zerofill Auto_Increment Primary Key,
                 MaTK int(6) Zerofill Not Null,
                 SoTien float Not Null,
                 NgayThanhToan TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -63,8 +63,9 @@
             SoLuong int Not Null,
             State varchar(50) Not Null,
             NgayMua TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-            primary key (MaHD, MaSP),
+            primary key (MaHD, MaTK, MaSP),
             Constraint LS_MaHD_FK Foreign Key (MaHD) References HoaDon(MaHD) On Delete cascade,
+            Constraint LS_MaTK_FK Foreign Key (MaTK) References Account(MaTK) On Delete cascade,
             Constraint LS_MaSP_FK Foreign Key (MaSP) References Products(MaSP) On Delete cascade
             )";
 
@@ -143,11 +144,12 @@
         $hoadons = json_decode($jsonHD, true);
 
         foreach ($hoadons as $hd) {
+            $MaHD = $hd['MaHD'];
             $MaTK = $hd['MaTK'];
             $SoTien = $hd['SoTien'];
 
-            $sql = "INSERT INTO HoaDon (MaTK, SoTien)
-                    VALUES ('$MaTK', $SoTien)";
+            $sql = "INSERT INTO HoaDon (MaHD, MaTK, SoTien)
+                    VALUES ('$MaHD', '$MaTK', $SoTien)";
             $this->setQuery($sql);
             $this->excuteQuery();
         }

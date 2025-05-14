@@ -75,12 +75,5 @@
     "MaSP": "SP0002",
     "SoLuong": 1,
     "State": "Đang giao"
-  },
-  {
-    "MaHD": "000012",
-    "MaTK": "000003",
-    "MaSP": "SP0001",
-    "SoLuong": 2,
-    "State": "Đã giao"
   }
 ]
