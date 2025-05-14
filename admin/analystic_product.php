@@ -40,7 +40,7 @@
                     <!-- Nhà sản xuất -->
                     <div class="col-md-3">
                         <label class="form-label">Ngày sản xuất</label>
-                        <input type="text" class="form-control" name="nsx" placeholder="Nhà sản xuất..." required>
+                        <input type="text" class="form-control" name="nsx" placeholder="Ngày sản xuất..." required>
                     </div>
 
                     <!-- Phân loại -->
